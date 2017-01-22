@@ -87,12 +87,12 @@ impl Mersenne<u32> {
                                       self.mt[((i+1) % self.n) as usize]
                                       & self.lower_mask);
 
-            let mut xA = x >> 1;
+            let mut x_a = x >> 1;
             if (x % 2) != 0 {
-                xA = xA ^ self.a
+                x_a = x_a ^ self.a
             }
             self.mt[i as usize] =
-                self.mt[((i + self.m) % self.n) as usize] ^ xA;
+                self.mt[((i + self.m) % self.n) as usize] ^ x_a;
         }
         self.index = 0;
     }
