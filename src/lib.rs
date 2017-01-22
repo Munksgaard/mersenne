@@ -62,6 +62,32 @@ pub fn seed_mt(seed: u32) -> Mersenne<u32> {
     result
 }
 
+pub fn from_vec(v: &[u32]) -> Mersenne<u32> {
+    assert_eq!(v.len(), 624);
+
+    Mersenne {
+        w: 32, n: 624, m: 397, r: 31,
+
+        a: 0x9908B0DF,
+
+        u: 11, d: 0xFFFFFFFF,
+
+        s: 7, b: 0x9D2C5680,
+
+        t: 15, c: 0xEFC60000,
+
+        l: 18,
+
+        f: 1812433253,
+
+        mt: v.to_vec(),
+        index: 624,
+
+        lower_mask: 0x7fffffff,
+        upper_mask: 0x80000000,
+    }
+}
+
 impl Mersenne<u32> {
     pub fn extract_number(&mut self) -> u32 {
         if self.index >= self.n {
